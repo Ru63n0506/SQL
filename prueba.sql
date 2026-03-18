@@ -2,18 +2,6 @@ create database clinica;
 
 use clinica;
 
-drop table consultar;
-drop table cuarto;
-drop table medicamento;
-drop table mobiliario;
-drop table mobiliario_cuarto;
-drop table ocupar;
-drop table paciente;
-drop table personal;
-drop table proveedor;
-drop table recetar;
-drop table surte;
-
 create table personal
 (
     id int PRIMARY KEY AUTO_INCREMENT not null,
@@ -125,7 +113,7 @@ create table ocupar
     fecha_inicio date not null,
     fecha_fin date,
 
-    primary key (id_cuarto, id_paciente, fecha_inicio),
+    primary key (id_cuarto, id_paciente, fecha_inicio)
 
     foreign key (id_cuarto) references cuarto(numero),
     foreign key (id_paciente) references paciente(id)
