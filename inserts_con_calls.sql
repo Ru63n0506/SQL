@@ -1,148 +1,3 @@
-create database clinica;
-/*
-show tables;
-SHOW PROCEDURE STATUS
-WHERE Db = 'clinica';
-
-drop procedure ocupar_cuarto;
-
-delete from consultar;
-
-ALTER TABLE consultar AUTO_INCREMENT = 1051;
-
-
-drop table consultar;
-drop table personal;
-drop table cuarto;
-drop table mobiliario_cuarto;
-drop table mobiliario;
-drop table recetar;
-drop table medicamento;
-drop table surte;
-drop table proveedor;
-drop table paciente;
-drop table ocupar;
-*/
-
-use clinica;
-
-create table personal
-(
-    id int PRIMARY KEY AUTO_INCREMENT not null,
-    nombre varchar(50) NOT NULL,
-    apellido varchar(50) NOT NULL,
-    cargo varchar(50) NOT NULL,
-    turno varchar(50) Not NULL,
-    telefono varchar(50) NOT NULL
-)AUTO_INCREMENT=308;
-
-create table cuarto
-(
-    numero int PRIMARY KEY not null,
-    tipo varchar(50) not null,
-    capacidad int not null
-);
-
-create table mobiliario
-(
-    id int primary key AUTO_INCREMENT not null,
-    nombre varchar(50) NOT NULL
-);
-
-create table medicamento
-(
-    id int primary key AUTO_INCREMENT not null,
-    nombre varchar(50) not null,
-    precio DECIMAL(7,2) not null,
-    cantidad int not null,
-    gramaje varchar(50) not null
-)AUTO_INCREMENT=110;
-
-create table proveedor
-(
-    id int primary key AUTO_INCREMENT not null,
-    nombre varchar(50) not null,
-    contacto varchar(10) not null
-)AUTO_INCREMENT=1001;
-
-create table paciente
-(
-    id int primary key AUTO_INCREMENT not null,
-    nombre varchar(50) not null,
-    apellido varchar(50) not null,
-    sexo varchar(2) not null,
-    fecha_nac date not null,
-    tipo_sangre varchar(3) not null
-)AUTO_INCREMENT=151;
-
-create table consultar
-(
-    folio int primary key AUTO_INCREMENT not null,
-    id_paciente int not null,
-    id_personal int not null,
-    fecha date not null,
-    peso DECIMAL(5,2) not null,
-    estatura DECIMAL(3,2) not null,
-    presion_arterial VARCHAR(7) not null,
-    frecuencia_cardiaca int not null,
-    frecuencia_respiratoria int not null,
-    temperatura DECIMAL(3,1) not null,
-    diagnostico varchar(100) not null,
-
-    foreign key (id_paciente) references paciente(id),
-    foreign key (id_personal) references personal(id)
-)AUTO_INCREMENT=1051;
-
-create table mobiliario_cuarto
-(
-    numero_cuarto int not null,
-    id_mobiliario int not null,
-    cantidad int not null,
-
-    primary key (numero_cuarto, id_mobiliario),
-    
-    foreign key (numero_cuarto) references cuarto(numero),
-    foreign key (id_mobiliario) references mobiliario(id)
-);
-
-create table recetar
-(
-    folio int not null,
-    id_medicamento int not null,
-    cantidad int not null,
-
-    primary key (folio, id_medicamento),
-
-    foreign key (folio) references consultar(folio),
-    Foreign Key (id_medicamento) REFERENCES medicamento(id)
-);
-
-create table surte
-(
-    id_proveedor int not null,
-    id_medicamento int not null,
-    fecha date not null,
-    cantidad int not null,    
-
-    primary key (id_proveedor, id_medicamento, fecha),
-
-    foreign key (id_proveedor) references proveedor(id),
-    foreign key (id_medicamento) references medicamento(id)
-);
-
-create table ocupar
-(
-    id_cuarto int not null,
-    id_paciente int not null,
-    fecha_inicio date not null,
-    fecha_fin date,
-
-    primary key (id_cuarto, id_paciente, fecha_inicio),
-
-    foreign key (id_cuarto) references cuarto(numero),
-    foreign key (id_paciente) references paciente(id)
-);
-
 CALL anadir_personal('Álvaro', 'Camacho', 'Enfermero', 'Vespertino', '2218439270');
 CALL anadir_personal('Mónica', 'Treviño', 'Cardióloga', 'Vespertino', '2229183745');
 CALL anadir_personal('César', 'Haro', 'Camillero', 'Nocturno', '2216574928');
@@ -173,14 +28,11 @@ CALL anadir_cuarto(203,"Privado",1);
 CALL anadir_cuarto(301,"Intensivo",1);
 CALL anadir_cuarto(302,"Intensivo",1);
 CALL anadir_cuarto(303,"Intensivo",2);
-
-
 CALL anadir_mobiliario("Cama");
 CALL anadir_mobiliario("Silla");
 CALL anadir_mobiliario("Escritorio");
 CALL anadir_mobiliario("Cama recuperacion");
 CALL anadir_mobiliario("Carro rojo");
-
 CALL anadir_medicamento("Paracetamol", 35.50, 200, "500mg");
 CALL anadir_medicamento("Ibuprofeno", 42.00, 150, "400 mg");
 CALL anadir_medicamento("Amoxicilina", 75.00, 100, "500 mg");
@@ -201,7 +53,6 @@ CALL anadir_medicamento("Penicilina", 95.00, 60, "400 mg");
 CALL anadir_medicamento("Furosemida", 38.00, 100, "40 mg");
 CALL anadir_medicamento("Losartán", 72.00, 150, "50 mg");
 CALL anadir_medicamento("Atorvastatina", 110.00, 80, "20 mg");
-
 CALL anadir_proveedor("FarmaAbastos Nacional", "2223344556");
 CALL anadir_proveedor("Médica Distribuciones del Centro", "2229988776");
 CALL anadir_proveedor("BioSalud Comercializadora", "2224433221");
@@ -222,7 +73,6 @@ CALL anadir_proveedor("Insumos Hospitalarios del Sur", "2229012345");
 CALL anadir_proveedor("Medicorp Distribuciones", "2229123456");
 CALL anadir_proveedor("Red Farma México", "2229234567");
 CALL anadir_proveedor("Suministros Médicos Integrales", "2229345678");
-
 CALL anadir_paciente("Carlos", "Mendoza", "M", '1992-04-12', "O+");
 CALL anadir_paciente("Laura", "Jiménez", "F", '1996-07-25', "A+");
 CALL anadir_paciente("Pedro", "Salinas", "M", '1988-11-03', "B+");
@@ -243,7 +93,6 @@ CALL anadir_paciente("Héctor", "Paredes", "M", '1982-04-15', "O+");
 CALL anadir_paciente("Gabriela", "Ortega", "F", '1993-07-08', "A-");
 CALL anadir_paciente("Tomás", "Reyes", "M", '1986-11-19', "B-");
 CALL anadir_paciente("Lucía", "Campos", "F", '2003-02-27', "O+");
-
 CALL consultar(151, 327, '2026-02-21', 74.00, 1.73, "120/80", 72, 16, 36.7, "Resfriado común");
 CALL consultar(152, 321, '2026-02-21', 66.00, 1.65, "118/78", 70, 16, 36.6, "Gastritis");
 CALL consultar(151, 315, '2026-02-23', 82.00, 1.79, "130/85", 78, 18, 37.0, "Hipertensión leve");
@@ -263,7 +112,7 @@ CALL consultar(166, 312, '2026-03-08', 69.00, 1.70, "120/80", 73, 16, 36.8, "Inf
 CALL consultar(167, 311, '2026-03-09', 77.00, 1.75, "123/82", 76, 17, 36.9, "Dolor de cabeza");
 CALL consultar(168, 308, '2026-03-10', 60.00, 1.64, "114/73", 71, 16, 36.6, "Deshidratación");
 CALL consultar(169, 327, '2026-03-11', 83.00, 1.79, "127/85", 79, 18, 37.2, "Influenza");
-CALL consultar(158,	321, '2026-03-11', 75.00, 1.73,	"122/80", 74, 16, 36.8, "Dolor abdominal");
+CALL consultar(158, 321, '2026-03-11', 75.00, 1.73, "122/80", 74, 16, 36.8, "Dolor abdominal");
 CALL mobiliario_cuarto(101, 1, 2);
 CALL mobiliario_cuarto(101, 2, 2);
 CALL mobiliario_cuarto(102, 1, 2);
@@ -274,7 +123,6 @@ CALL mobiliario_cuarto(202, 1, 1);
 CALL mobiliario_cuarto(202, 3, 1);
 CALL mobiliario_cuarto(301, 4, 1);
 CALL mobiliario_cuarto(303, 4, 2);
-
 CALL recetar(1051, 124, 10);
 CALL recetar(1051, 125, 8);
 CALL recetar(1051, 112, 6);
@@ -295,7 +143,6 @@ CALL recetar(1067, 119, 6);
 CALL recetar(1068, 120, 5);
 CALL recetar(1069, 117, 7);
 CALL recetar(1070, 122, 6);
-
 CALL surte(1001, 110, '2026-01-05', 50);
 CALL surte(1001, 115, '2026-01-06', 40);
 CALL surte(1002, 110, '2026-01-08', 35);
@@ -316,7 +163,6 @@ CALL surte(1009, 122, '2026-01-22', 18);
 CALL surte(1011, 115, '2026-01-23', 40);
 CALL surte(1010, 125, '2026-01-24', 37);
 CALL surte(1011, 110, '2026-02-25', 26);
-
 CALL ocupar_cuarto(101, 154, '2026-03-01', '2026-03-05');
 CALL ocupar_cuarto(202, 154, '2026-03-02', '2026-03-06');
 CALL ocupar_cuarto(303, 167, '2026-03-03', '2026-03-07');
@@ -337,14 +183,3 @@ CALL ocupar_cuarto(202, 170, '2026-03-17', '2026-03-21');
 CALL ocupar_cuarto(302, 160, '2026-03-18', '2026-03-22');
 CALL ocupar_cuarto(103, 153, '2026-03-19', '2026-03-23');
 CALL ocupar_cuarto(201, 166, '2026-03-20', '2026-03-24');
-/*CALL mostrar_cuartos_ocupados();*/
-/*CALL mostrar_cuartos();*/
-/*CALL mostrar_personal();*/
-/*CALL mostrar_mobiliarios();*/
-/*CALL mostrar_medicamentos();*/
-/*CALL mostrar_proveedores();*/
-/*CALL mostrar_pacientes();*/
-/*CALL mostrar_consultas();*/
-/*CALL mostrar_mobiliario_cuarto();*/
-/*CALL mostrar_recetas();*/
-/*CALL mostrar_surtir();*/

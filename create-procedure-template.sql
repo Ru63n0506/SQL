@@ -71,7 +71,7 @@ END;
 CREATE PROCEDURE ocupar_cuarto(IN O_ID_CUARTO INT, IN O_ID_PACIENTE INT, IN O_FECHA_INICIO DATE, IN O_FECHA_FIN DATE)
 BEGIN
 
-    insert into ocupar_cuarto(numero_cuarto, id_paciente, fecha_inicio, fecha_fin) values (O_ID_CUARTO, O_ID_PACIENTE, O_FECHA_INICIO, O_FECHA_FIN);
+    insert into ocupar(id_cuarto, id_paciente, fecha_inicio, fecha_fin) values (O_ID_CUARTO, O_ID_PACIENTE, O_FECHA_INICIO, O_FECHA_FIN);
 
 END;
 
