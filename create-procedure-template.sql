@@ -1,153 +1,233 @@
-CREATE PROCEDURE anadir_personal(IN P_NOMBRE VARCHAR(50), IN P_APELLIDO VARCHAR(50), IN P_CARGO VARCHAR(50), IN P_TURNO VARCHAR(20), IN P_TELEFONO VARCHAR(15))
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS anadir_personal $$
+CREATE PROCEDURE anadir_personal(
+    IN P_NOMBRE VARCHAR(50),
+    IN P_APELLIDO VARCHAR(50),
+    IN P_CARGO VARCHAR(50),
+    IN P_TURNO VARCHAR(20),
+    IN P_TELEFONO VARCHAR(15)
+)
 BEGIN
-    
-    insert into personal (nombre, apellido, cargo, turno, telefono) values (P_NOMBRE, P_APELLIDO, P_CARGO, P_TURNO, P_TELEFONO);
+    INSERT INTO personal(nombre, apellido, cargo, turno, telefono)
+    VALUES (P_NOMBRE, P_APELLIDO, P_CARGO, P_TURNO, P_TELEFONO);
+END $$
 
-END;
 
-CREATE PROCEDURE anadir_cuarto(IN C_NUMERO INT, IN C_TIPO VARCHAR(50), IN C_CAPACIDAD INT)
+DROP PROCEDURE IF EXISTS anadir_cuarto $$
+CREATE PROCEDURE anadir_cuarto(
+    IN C_NUMERO INT,
+    IN C_TIPO VARCHAR(50),
+    IN C_CAPACIDAD INT
+)
 BEGIN
+    INSERT INTO cuarto(numero, tipo, capacidad)
+    VALUES (C_NUMERO, C_TIPO, C_CAPACIDAD);
+END $$
 
-    insert into cuarto (numero, tipo, capacidad) values (C_NUMERO, C_TIPO, C_CAPACIDAD);
 
-END;
-
-CREATE PROCEDURE anadir_mobiliario(IN M_NOMBRE VARCHAR(50))
+DROP PROCEDURE IF EXISTS anadir_mobiliario $$
+CREATE PROCEDURE anadir_mobiliario(
+    IN M_NOMBRE VARCHAR(50)
+)
 BEGIN
+    INSERT INTO mobiliario(nombre)
+    VALUES (M_NOMBRE);
+END $$
 
-    insert into mobiliario (nombre) values (M_NOMBRE);
 
-END;
-
-CREATE PROCEDURE anadir_medicamento(IN M_NOMBRE VARCHAR(50), IN M_PRECIO DECIMAL(7,2), IN M_CANTIDAD INT, IN M_GRAMAJE VARCHAR(50))
+DROP PROCEDURE IF EXISTS anadir_medicamento $$
+CREATE PROCEDURE anadir_medicamento(
+    IN M_NOMBRE VARCHAR(50),
+    IN M_PRECIO DECIMAL(7,2),
+    IN M_CANTIDAD INT,
+    IN M_GRAMAJE VARCHAR(50)
+)
 BEGIN
+    INSERT INTO medicamento(nombre, precio, cantidad, gramaje)
+    VALUES (M_NOMBRE, M_PRECIO, M_CANTIDAD, M_GRAMAJE);
+END $$
 
-    insert into medicamento (nombre, precio, cantidad, gramaje) values (M_NOMBRE, M_PRECIO, M_CANTIDAD, M_GRAMAJE);
 
-END;
-
-CREATE PROCEDURE anadir_proveedor(IN P_NOMBRE VARCHAR(50), IN P_CONTACTO VARCHAR(10))
+DROP PROCEDURE IF EXISTS anadir_proveedor $$
+CREATE PROCEDURE anadir_proveedor(
+    IN P_NOMBRE VARCHAR(50),
+    IN P_CONTACTO VARCHAR(10)
+)
 BEGIN
+    INSERT INTO proveedor(nombre, contacto)
+    VALUES (P_NOMBRE, P_CONTACTO);
+END $$
 
-    insert into proveedor (nombre, contacto) values (P_NOMBRE, P_CONTACTO);
 
-END;
-
-CREATE PROCEDURE anadir_paciente(IN P_NOMBRE VARCHAR(50), IN P_APELLIDO VARCHAR(50), IN P_SEXO VARCHAR(2), IN P_FECHA_NAC DATE, IN P_TIPO_SANGRE VARCHAR(3))
+DROP PROCEDURE IF EXISTS anadir_paciente $$
+CREATE PROCEDURE anadir_paciente(
+    IN P_NOMBRE VARCHAR(50),
+    IN P_APELLIDO VARCHAR(50),
+    IN P_SEXO VARCHAR(2),
+    IN P_FECHA_NAC DATE,
+    IN P_TIPO_SANGRE VARCHAR(3)
+)
 BEGIN
+    INSERT INTO paciente(nombre, apellido, sexo, fecha_nac, tipo_sangre)
+    VALUES (P_NOMBRE, P_APELLIDO, P_SEXO, P_FECHA_NAC, P_TIPO_SANGRE);
+END $$
 
-    insert into paciente (nombre, apellido, sexo, fecha_nac, tipo_sangre) values (P_NOMBRE, P_APELLIDO, P_SEXO, P_FECHA_NAC, P_TIPO_SANGRE);
 
-END;
-
-CREATE PROCEDURE consultar(IN C_ID_PACIENET INT, IN C_ID_PERSONAL INT, IN C_FECHA DATE, IN C_PESO DECIMAL(5,2), IN C_ESTATURA DECIMAL(3,2), IN C_PRESION_ARTERIAL VARCHAR(7), IN C_FRECUENCIA_CARDIACA INT, IN C_FRECUENCIA_RESPIRATORIA INT, IN C_TEMPERATURA DECIMAL(3,1), IN C_DIAGNOSTICO VARCHAR(100))
+DROP PROCEDURE IF EXISTS consultar $$
+CREATE PROCEDURE consultar(
+    IN C_ID_PACIENTE INT,
+    IN C_ID_PERSONAL INT,
+    IN C_FECHA DATE,
+    IN C_PESO DECIMAL(5,2),
+    IN C_ESTATURA DECIMAL(3,2),
+    IN C_PRESION_ARTERIAL VARCHAR(7),
+    IN C_FRECUENCIA_CARDIACA INT,
+    IN C_FRECUENCIA_RESPIRATORIA INT,
+    IN C_TEMPERATURA DECIMAL(3,1),
+    IN C_DIAGNOSTICO VARCHAR(100)
+)
 BEGIN
+    INSERT INTO consultar(
+        id_paciente, id_personal, fecha, peso, estatura,
+        presion_arterial, frecuencia_cardiaca,
+        frecuencia_respiratoria, temperatura, diagnostico
+    )
+    VALUES (
+        C_ID_PACIENTE, C_ID_PERSONAL, C_FECHA, C_PESO, C_ESTATURA,
+        C_PRESION_ARTERIAL, C_FRECUENCIA_CARDIACA,
+        C_FRECUENCIA_RESPIRATORIA, C_TEMPERATURA, C_DIAGNOSTICO
+    );
+END $$
 
-    insert into consultar(id_paciente, id_personal, fecha, peso, estatura, presion_arterial, frecuencia_cardiaca, frecuencia_respiratoria, temperatura, diagnostico) values (C_ID_PACIENET, C_ID_PERSONAL, C_FECHA, C_PESO, C_ESTATURA, C_PRESION_ARTERIAL, C_FRECUENCIA_CARDIACA, C_FRECUENCIA_RESPIRATORIA, C_TEMPERATURA, C_DIAGNOSTICO);
 
-END;
-
-CREATE PROCEDURE mobiliario_cuarto(IN C_NUMERO INT, IN M_ID INT,IN CANTIDAD INT)
+DROP PROCEDURE IF EXISTS mobiliario_cuarto $$
+CREATE PROCEDURE mobiliario_cuarto(
+    IN C_NUMERO INT,
+    IN M_ID INT,
+    IN CANTIDAD INT
+)
 BEGIN
+    INSERT INTO mobiliario_cuarto(numero_cuarto, id_mobiliario, cantidad)
+    VALUES (C_NUMERO, M_ID, CANTIDAD);
+END $$
 
-    insert into mobiliario_cuarto(numero_cuarto, id_mobiliario, cantidad) values (C_NUMERO, M_ID, CANTIDAD);
 
-END;
-
-CREATE PROCEDURE recetar(IN R_FOLIO INT, IN R_ID_MEDICAMENTO INT, IN R_CANTIDAD INT)
+DROP PROCEDURE IF EXISTS recetar $$
+CREATE PROCEDURE recetar(
+    IN R_FOLIO INT,
+    IN R_ID_MEDICAMENTO INT,
+    IN R_CANTIDAD INT
+)
 BEGIN
+    INSERT INTO recetar(folio, id_medicamento, cantidad)
+    VALUES (R_FOLIO, R_ID_MEDICAMENTO, R_CANTIDAD);
+END $$
 
-    insert into recetar(folio, id_medicamento, cantidad) values (R_FOLIO, R_ID_MEDICAMENTO, R_CANTIDAD);
 
-END;    
-
-CREATE PROCEDURE surte(IN S_ID_PROVEEDOR INT, IN S_ID_MEDICAMENTO INT, IN S_FECHA DATE, IN S_CANTIDAD INT)
+DROP PROCEDURE IF EXISTS surte $$
+CREATE PROCEDURE surte(
+    IN S_ID_PROVEEDOR INT,
+    IN S_ID_MEDICAMENTO INT,
+    IN S_FECHA DATE,
+    IN S_CANTIDAD INT
+)
 BEGIN
+    INSERT INTO surte(id_proveedor, id_medicamento, fecha, cantidad)
+    VALUES (S_ID_PROVEEDOR, S_ID_MEDICAMENTO, S_FECHA, S_CANTIDAD);
+END $$
 
-    insert into surte(id_proveedor, id_medicamento, fecha, cantidad) values (S_ID_PROVEEDOR, S_ID_MEDICAMENTO, S_FECHA, S_CANTIDAD);
 
-END;
-
-CREATE PROCEDURE ocupar_cuarto(IN O_ID_CUARTO INT, IN O_ID_PACIENTE INT, IN O_FECHA_INICIO DATE, IN O_FECHA_FIN DATE)
+DROP PROCEDURE IF EXISTS ocupar_cuarto $$
+CREATE PROCEDURE ocupar_cuarto(
+    IN O_ID_CUARTO INT,
+    IN O_ID_PACIENTE INT,
+    IN O_FECHA_INICIO DATE,
+    IN O_FECHA_FIN DATE
+)
 BEGIN
+    INSERT INTO ocupar(id_cuarto, id_paciente, fecha_inicio, fecha_fin)
+    VALUES (O_ID_CUARTO, O_ID_PACIENTE, O_FECHA_INICIO, O_FECHA_FIN);
+END $$
 
-    insert into ocupar(id_cuarto, id_paciente, fecha_inicio, fecha_fin) values (O_ID_CUARTO, O_ID_PACIENTE, O_FECHA_INICIO, O_FECHA_FIN);
 
-END;
+-- PROCEDIMIENTOS DE CONSULTA
 
+DROP PROCEDURE IF EXISTS mostrar_personal $$
 CREATE PROCEDURE mostrar_personal()
 BEGIN
-    
-    select * from personal;
+    SELECT * FROM personal;
+END $$
 
-END; 
 
+DROP PROCEDURE IF EXISTS mostrar_cuartos $$
 CREATE PROCEDURE mostrar_cuartos()
 BEGIN
+    SELECT * FROM cuarto;
+END $$
 
-    select * from cuarto;
 
-END;
-
+DROP PROCEDURE IF EXISTS mostrar_mobiliarios $$
 CREATE PROCEDURE mostrar_mobiliarios()
 BEGIN
-    
-    select * from mobiliario;
+    SELECT * FROM mobiliario;
+END $$
 
-END; 
 
+DROP PROCEDURE IF EXISTS mostrar_medicamentos $$
 CREATE PROCEDURE mostrar_medicamentos()
 BEGIN
-    
-    select * from medicamento;
+    SELECT * FROM medicamento;
+END $$
 
-END; 
 
+DROP PROCEDURE IF EXISTS mostrar_proveedores $$
 CREATE PROCEDURE mostrar_proveedores()
 BEGIN
-    
-    select * from proveedor;
+    SELECT * FROM proveedor;
+END $$
 
-END; 
 
+DROP PROCEDURE IF EXISTS mostrar_pacientes $$
 CREATE PROCEDURE mostrar_pacientes()
 BEGIN
+    SELECT * FROM paciente;
+END $$
 
-    select * from paciente;
 
-END;
-
+DROP PROCEDURE IF EXISTS mostrar_consultas $$
 CREATE PROCEDURE mostrar_consultas()
 BEGIN
+    SELECT * FROM consultar;
+END $$
 
-    select * from consultar;
 
-END;
-
+DROP PROCEDURE IF EXISTS mostrar_mobiliario_cuarto $$
 CREATE PROCEDURE mostrar_mobiliario_cuarto()
 BEGIN
+    SELECT * FROM mobiliario_cuarto;
+END $$
 
-    select * from mobiliario_cuarto;
 
-END;
-
+DROP PROCEDURE IF EXISTS mostrar_recetas $$
 CREATE PROCEDURE mostrar_recetas()
 BEGIN
+    SELECT * FROM recetar;
+END $$
 
-    select * from recetar;
 
-END;
-
+DROP PROCEDURE IF EXISTS mostrar_surtir $$
 CREATE PROCEDURE mostrar_surtir()
 BEGIN
+    SELECT * FROM surte;
+END $$
 
-    select * from surte;
 
-END;
-
+DROP PROCEDURE IF EXISTS mostrar_cuartos_ocupados $$
 CREATE PROCEDURE mostrar_cuartos_ocupados()
 BEGIN
+    SELECT * FROM ocupar;
+END $$
 
-    select * from ocupar;
 
-END;    
+DELIMITER ;
