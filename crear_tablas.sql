@@ -52,7 +52,7 @@ create table consultar
     folio int primary key AUTO_INCREMENT not null,
     id_paciente int not null,
     id_personal int not null,
-    fecha date not null,
+    fecha date default current_date not null,
     peso DECIMAL(5,2) not null,
     estatura DECIMAL(3,2) not null,
     presion_arterial VARCHAR(7) not null,
@@ -93,8 +93,7 @@ create table surte
 (
     id_proveedor int not null,
     id_medicamento int not null,
-    fecha date not null,
-    precio_compra DECIMAL(7,2) not null,
+    fecha date default current_date not null,
     cantidad int not null,    
 
     primary key (id_proveedor, id_medicamento, fecha),
@@ -107,7 +106,7 @@ create table ocupar
 (
     id_cuarto int not null,
     id_paciente int not null,
-    fecha_inicio date not null,
+    fecha_inicio date default current_date not null,
     fecha_fin date,
 
     primary key (id_cuarto, id_paciente, fecha_inicio),
