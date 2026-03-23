@@ -25,7 +25,7 @@ create table medicamento
 (
     id int primary key AUTO_INCREMENT not null,
     nombre varchar(50) not null,
-    precio DECIMAL(7,2) not null,
+    precio_venta DECIMAL(7,2) not null,
     cantidad int not null,
     gramaje varchar(50) not null
 )AUTO_INCREMENT=110;
@@ -94,6 +94,7 @@ create table surte
     id_proveedor int not null,
     id_medicamento int not null,
     fecha date not null,
+    precio_compra DECIMAL(7,2) not null,
     cantidad int not null,    
 
     primary key (id_proveedor, id_medicamento, fecha),
