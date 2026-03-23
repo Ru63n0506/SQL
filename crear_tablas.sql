@@ -43,7 +43,7 @@ create table paciente
     nombre varchar(50) not null,
     apellido varchar(50) not null,
     sexo varchar(2) not null,
-    fecha_nac date default current_date not null,
+    fecha_nac date not null,
     tipo_sangre varchar(3) not null
 )AUTO_INCREMENT=151;
 
