@@ -94,6 +94,7 @@ create table surte
     id_proveedor int not null,
     id_medicamento int not null,
     fecha date default current_date not null,
+    precio_compra DECIMAL(7,2) not null,
     cantidad int not null,    
 
     primary key (id_proveedor, id_medicamento, fecha),
