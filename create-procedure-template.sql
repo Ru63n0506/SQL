@@ -157,7 +157,6 @@ BEGIN
     end if;
 END $$
 
-
 DROP PROCEDURE IF EXISTS ocupar_cuarto $$
 CREATE PROCEDURE ocupar_cuarto(
     IN O_ID_CUARTO INT,
@@ -166,8 +165,20 @@ CREATE PROCEDURE ocupar_cuarto(
     IN O_FECHA_FIN DATE
 )
 BEGIN
-    INSERT INTO ocupar(id_cuarto, id_paciente, fecha_inicio, fecha_fin)
-    VALUES (O_ID_CUARTO, O_ID_PACIENTE, O_FECHA_INICIO, O_FECHA_FIN);
+    SET @cuarto = (SELECT COUNT(*) FROM cuarto WHERE numero = O_ID_CUARTO);
+
+    IF @cuarto = 0 THEN
+        SELECT "El cuarto no existe" AS Mensaje;
+    ELSE
+        SET @paciente = (SELECT COUNT(*) FROM paciente WHERE id = O_ID_PACIENTE);
+
+        IF @paciente = 0 THEN
+            SELECT "El paciente no existe" AS Mensaje;
+        ELSE
+            INSERT INTO ocupar(id_cuarto, id_paciente, fecha_inicio, fecha_fin)
+            VALUES (O_ID_CUARTO, O_ID_PACIENTE, O_FECHA_INICIO, O_FECHA_FIN);
+        END IF;
+    END IF;
 END $$
 
 DELIMITER ;
