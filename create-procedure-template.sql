@@ -74,30 +74,34 @@ BEGIN
 END $$
 
 
-DROP PROCEDURE IF EXISTS consultar $$
-CREATE PROCEDURE consultar(
-    IN C_ID_PACIENTE INT,
-    IN C_ID_PERSONAL INT,
-    IN C_FECHA DATE,
-    IN C_PESO DECIMAL(5,2),
-    IN C_ESTATURA DECIMAL(3,2),
-    IN C_PRESION_ARTERIAL VARCHAR(7),
-    IN C_FRECUENCIA_CARDIACA INT,
-    IN C_FRECUENCIA_RESPIRATORIA INT,
-    IN C_TEMPERATURA DECIMAL(3,1),
-    IN C_DIAGNOSTICO VARCHAR(100)
+DROP PROCEDURE IF EXISTS añadir_consulta $$
+CREATE PROCEDURE añadir_consulta(
+    IN idPac INT,
+    IN idPer INT,
+    IN fecha DATE,
+    IN peso DECIMAL(5,2),
+    IN estatura DECIMAL(3,2),
+    IN presion_art VARCHAR(7),
+    IN frec_card INT,
+    IN frec_respi INT,
+    IN temperatura DECIMAL(3,1),
+    IN diagnostico VARCHAR(100)
 )
 BEGIN
-    INSERT INTO consultar(
-        id_paciente, id_personal, fecha, peso, estatura,
-        presion_arterial, frecuencia_cardiaca,
-        frecuencia_respiratoria, temperatura, diagnostico
-    )
-    VALUES (
-        C_ID_PACIENTE, C_ID_PERSONAL, C_FECHA, C_PESO, C_ESTATURA,
-        C_PRESION_ARTERIAL, C_FRECUENCIA_CARDIACA,
-        C_FRECUENCIA_RESPIRATORIA, C_TEMPERATURA, C_DIAGNOSTICO
-    );
+    set @cli = (select count(*) from paciente where id = idPac);
+    if @cli = 0 then 
+		select "No existe el paciente" as Mensaje;
+    else
+		set @per = (select count(*) from personal where id = idPer);
+		if @per = 0 then
+			select "No existe el personal" as Mensaje;
+		else 
+			insert into consultar(id_paciente, id_personal, fecha, peso, estatura, presion_arterial,
+            frecuencia_cardiaca, frecuencia_respiratoria, temperatura, diagnostico)
+            values (idPac,idPer, fecha, peso, estatura, presion_art, frec_card, frec_respi, temperatura,
+            diagnostico);
+        end if;
+    end if;
 END $$
 
 
