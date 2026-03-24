@@ -134,8 +134,24 @@ CREATE PROCEDURE recetar(
     IN R_CANTIDAD INT
 )
 BEGIN
-    INSERT INTO recetar(folio, id_medicamento, cantidad)
-    VALUES (R_FOLIO, R_ID_MEDICAMENTO, R_CANTIDAD);
+    IF R_CANTIDAD <= 0 THEN
+        SELECT "La cantidad debe ser positiva" AS Mensaje;
+    ELSE
+        SET @folio = (SELECT COUNT(*) FROM consultar WHERE folio = R_FOLIO);
+
+        IF @folio = 0 THEN
+            SELECT "El folio no existe" AS Mensaje;
+        ELSE
+            SET @med = (SELECT COUNT(*) FROM medicamento WHERE id = R_ID_MEDICAMENTO);
+
+            IF @med = 0 THEN
+                SELECT "El medicamento no existe" AS Mensaje;
+            ELSE
+                INSERT INTO recetar(folio, id_medicamento, cantidad)
+                VALUES (R_FOLIO, R_ID_MEDICAMENTO, R_CANTIDAD);
+            END IF;
+        END IF;
+    END IF;
 END $$
 
 
