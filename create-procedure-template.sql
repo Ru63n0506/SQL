@@ -133,8 +133,13 @@ CREATE PROCEDURE surte(
     IN S_CANTIDAD INT
 )
 BEGIN
-    INSERT INTO surte(id_proveedor, id_medicamento, fecha, cantidad)
+    set @Vmedicamento = (select count(*) from medicamento where  id = s_id_medicamento);
+    set @Vproveedor = (select count(*) from proveedor where  id = s_id_proveedor);
+
+    if(@Vmedicamento = 0 or @Vproveedor = 0) then select "El id del medicamento o del provedor no existen";
+    else INSERT INTO surte(id_proveedor, id_medicamento, fecha, cantidad)
     VALUES (S_ID_PROVEEDOR, S_ID_MEDICAMENTO, S_FECHA, S_CANTIDAD);
+    end if;
 END $$
 
 
