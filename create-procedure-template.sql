@@ -88,20 +88,26 @@ CREATE PROCEDURE añadir_consulta(
     IN diagnostico VARCHAR(100)
 )
 BEGIN
-    set @cli = (select count(*) from paciente where id = idPac);
-    if @cli = 0 then 
-		select "No existe el paciente" as Mensaje;
-    else
-		set @per = (select count(*) from personal where id = idPer);
-		if @per = 0 then
-			select "No existe el personal" as Mensaje;
-		else 
-			insert into consultar(id_paciente, id_personal, fecha, peso, estatura, presion_arterial,
-            frecuencia_cardiaca, frecuencia_respiratoria, temperatura, diagnostico)
-            values (idPac,idPer, fecha, peso, estatura, presion_art, frec_card, frec_respi, temperatura,
-            diagnostico);
-        end if;
-    end if;
+	if peso <= 0 or estatura <= 0 or temperatura <= 0 
+       or frec_card <= 0 or frec_respi <= 0 then
+       
+        select "Valores del paciente inválidos, deben ser positivos" AS Mensaje;
+	else 
+		set @cli = (select count(*) from paciente where id = idPac);
+		if @cli = 0 then 
+			select "No existe el paciente" as Mensaje;
+		else
+			set @per = (select count(*) from personal where id = idPer);
+			if @per = 0 then
+				select "No existe el personal" as Mensaje;
+			else 
+				insert into consultar(id_paciente, id_personal, fecha, peso, estatura, presion_arterial,
+				frecuencia_cardiaca, frecuencia_respiratoria, temperatura, diagnostico)
+				values (idPac,idPer, fecha, peso, estatura, presion_art, frec_card, frec_respi, temperatura,
+				diagnostico);
+			end if;
+		end if;
+	end if;
 END $$
 
 
