@@ -24,14 +24,14 @@ BEGIN
 	DECLARE existe int;
 
 	IF C_NUMERO < 100 OR C_NUMERO >= 400 OR C_CAPACIDAD <= 0 OR C_TIPO = ''
-		THEN SELECT "Datos invalidos" AS Mensaje
+		THEN SELECT "Datos invalidos" AS Mensaje;
 	ELSE
 		SELECT COUNT(*) INTO existe 
         FROM cuarto 
         WHERE numero = C_NUMERO;
 
 		IF existe > 0
-			THEN SELECT "El cuarto ya existe" AS Mensaje
+			THEN SELECT "El cuarto ya existe" AS Mensaje;
 		ELSE
     		INSERT INTO cuarto(numero, tipo, capacidad)
     		VALUES (C_NUMERO, C_TIPO, C_CAPACIDAD);
