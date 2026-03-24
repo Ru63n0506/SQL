@@ -44,8 +44,12 @@ CREATE PROCEDURE anadir_medicamento(
     IN M_GRAMAJE VARCHAR(50)
 )
 BEGIN
-    INSERT INTO medicamento(nombre, precio_venta, cantidad, gramaje)
-    VALUES (M_NOMBRE, M_PRECIO, M_CANTIDAD, M_GRAMAJE);
+	IF M_PRECIO < 0 OR M_CANTIDAD < 0 OR M_GRAMAJE < 0 THEN 
+		SELECT "Los valores ingresados deben ser positivos" AS Mensaje;
+	ELSE
+	    INSERT INTO medicamento(nombre, precio_venta, cantidad, gramaje)
+	    VALUES (M_NOMBRE, M_PRECIO, M_CANTIDAD, M_GRAMAJE);
+	END IF;
 END $$
 
 
