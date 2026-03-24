@@ -21,8 +21,22 @@ CREATE PROCEDURE anadir_cuarto(
     IN C_CAPACIDAD INT
 )
 BEGIN
-    INSERT INTO cuarto(numero, tipo, capacidad)
-    VALUES (C_NUMERO, C_TIPO, C_CAPACIDAD);
+	DECLARE existe int;
+
+	IF C_NUMERO < 100 OR C_NUMERO >= 400 OR C_CAPACIDAD <= 0 OR C_TIPO = ''
+		THEN SELECT "Datos invalidos" AS Mensaje
+	ELSE
+		SELECT COUNT(*) INTO existe 
+        FROM cuarto 
+        WHERE numero = C_NUMERO;
+
+		IF existe > 0
+			THEN SELECT "El cuarto ya existe" AS Mensaje
+		ELSE
+    		INSERT INTO cuarto(numero, tipo, capacidad)
+    		VALUES (C_NUMERO, C_TIPO, C_CAPACIDAD);
+		END IF;
+	END IF;
 END $$
 
 
@@ -122,8 +136,38 @@ CREATE PROCEDURE mobiliario_cuarto(
     IN CANTIDAD INT
 )
 BEGIN
-    INSERT INTO mobiliario_cuarto(numero_cuarto, id_mobiliario, cantidad)
-    VALUES (C_NUMERO, M_ID, CANTIDAD);
+	DECLARE C_CUARTO INT;
+	DECLARE C_MOBILIARIO INT;
+	DECLARE C_EXISTE INT;
+	
+	IF CANTIDAD <=0
+		THEN SELECT "Cantidad invalida" AS Mensaje;
+	ELSE
+		SELECT COUNT(*) INTO C_CUARTO
+		FROM cuarto WHERE numero = C_NUMERO;
+
+		IF C_CUARTO = 0
+			THEN SELECT "El cuarto no existe" AS Mensaje;
+		ELSE
+			SELECT COUNT(*) INTO C_MOBILIARIO
+			FROM mobiliario WHERE id = M_ID;
+
+			IF C_MOBILIARIO = 0
+				THEN SELECT "El mobiliario no existe" AS Mensaje;
+			ELSE
+				SELECT COUNT(*) INTO C_EXISTE
+                FROM mobiliario_cuarto
+                WHERE numero_cuarto = C_NUMERO AND id_mobiliario = M_ID;
+
+                IF C_EXISTE > 0 
+					THEN SELECT "Ese mobiliario ya está asignado al cuarto" AS Mensaje;
+                ELSE
+    				INSERT INTO mobiliario_cuarto(numero_cuarto, id_mobiliario, cantidad)
+    				VALUES (C_NUMERO, M_ID, CANTIDAD);
+				END IF;
+			END IF;
+		END IF;
+	END IF;
 END $$
 
 
