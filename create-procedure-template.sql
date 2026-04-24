@@ -23,18 +23,30 @@ CREATE PROCEDURE anadir_cuarto(
 BEGIN
 	DECLARE existe int;
 
-	IF C_NUMERO < 100 OR C_NUMERO >= 400 OR C_CAPACIDAD <= 0 OR C_TIPO = ''
-		THEN SELECT "Datos invalidos" AS Mensaje;
-	ELSE
-		SELECT COUNT(*) INTO existe 
-        FROM cuarto 
-        WHERE numero = C_NUMERO;
-
-		IF existe > 0
-			THEN SELECT "El cuarto ya existe" AS Mensaje;
+	IF C_NUMERO < 100 
+		THEN SELECT "Numero de cuarto invalido, debe ser mayor a 100" AS Mensaje;
+	ELSE 
+		IF C_NUMERO >= 400
+			THEN SELECT "Numero de cuarto invalido, debe ser menor a 400" AS Mensaje;
 		ELSE
-    		INSERT INTO cuarto(numero, tipo, capacidad)
-    		VALUES (C_NUMERO, C_TIPO, C_CAPACIDAD);
+			IF C_CAPACIDAD <= 0 
+				THEN SELECT "La capacidad del cuarto debe ser mayor a 0" AS Mensaje;
+			ELSE
+				IF C_TIPO = ''
+					THEN SELECT "El cuarto debe de tener tipo" AS Mensaje;
+				ELSE 
+					SELECT COUNT(*) INTO existe 
+					FROM cuarto 
+					WHERE numero = C_NUMERO;
+
+					IF existe > 0
+						THEN SELECT "El cuarto ya existe" AS Mensaje;
+					ELSE
+						INSERT INTO cuarto(numero, tipo, capacidad)
+						VALUES (C_NUMERO, C_TIPO, C_CAPACIDAD);
+					END IF;
+				END IF;
+			END IF;
 		END IF;
 	END IF;
 END $$
@@ -58,11 +70,30 @@ CREATE PROCEDURE anadir_medicamento(
     IN M_GRAMAJE VARCHAR(50)
 )
 BEGIN
-	IF M_PRECIO < 0 OR M_CANTIDAD < 0 OR M_GRAMAJE < 0 THEN 
-		SELECT "Los valores ingresados deben ser positivos" AS Mensaje;
+
+	declare exite int;
+    
+	IF M_PRECIO < 0
+		THEN SELECT "El precio debe de ser positivo" AS Mensaje;
 	ELSE
-	    INSERT INTO medicamento(nombre, precio_venta, cantidad, gramaje)
-	    VALUES (M_NOMBRE, M_PRECIO, M_CANTIDAD, M_GRAMAJE);
+		IF M_CANTIDAD < 0
+			THEN SELECT "La cantidad debe de ser positiva" AS Mensaje;
+		ELSE
+			IF M_GRAMAJE < 0 
+				THEN SELECT "El gramaje debe de ser positivo" AS Mensaje;
+			ELSE
+				SELECT COUNT(*) INTO existe 
+				FROM medicamento
+				WHERE nombre = M_NOMBRE;
+
+				IF existe > 0
+					THEN SELECT "El medicamento ya existe" AS Mensaje;
+				ELSE
+					INSERT INTO medicamento(nombre, precio_venta, cantidad, gramaje)
+					VALUES (M_NOMBRE, M_PRECIO, M_CANTIDAD, M_GRAMAJE);
+				END IF;
+			END IF;
+		END IF;
 	END IF;
 END $$
 
@@ -106,23 +137,37 @@ CREATE PROCEDURE añadir_consulta(
     IN diagnostico VARCHAR(100)
 )
 BEGIN
-	if peso <= 0 or estatura <= 0 or temperatura <= 0 
-       or frec_card <= 0 or frec_respi <= 0 then
-       
-        select "Valores del paciente inválidos, deben ser positivos" AS Mensaje;
-	else 
-		set @cli = (select count(*) from paciente where id = idPac);
-		if @cli = 0 then 
-			select "No existe el paciente" as Mensaje;
+	if peso <= 0
+		then select "El peso debe de ser mayor a 0" as Mensaje;
+	else
+		if estatura <= 0 
+			then select "La estatura debe ser mayor a 0" as Mensaje;
 		else
-			set @per = (select count(*) from personal where id = idPer);
-			if @per = 0 then
-				select "No existe el personal" as Mensaje;
-			else 
-				insert into consultar(id_paciente, id_personal, fecha, peso, estatura, presion_arterial,
-				frecuencia_cardiaca, frecuencia_respiratoria, temperatura, diagnostico)
-				values (idPac,idPer, fecha, peso, estatura, presion_art, frec_card, frec_respi, temperatura,
-				diagnostico);
+			if temperatura <= 0 
+				then select "La temperatura debe ser mayor a 0 preferentemente" as Mensaje;
+			else
+				if frec_card <= 0
+					then select "La frecuencia cardiaca debe ser mayor a 0 preferentemente" as Mensaje;
+				else
+					if frec_respi <= 0 
+						then select "La frecuencia respiratoria debe ser mayor a 0 preferentemente" as Mensaje;
+					else
+						set @cli = (select count(*) from paciente where id = idPac);
+						if @cli = 0 
+							then select "No existe el paciente" as Mensaje;
+						else
+							set @per = (select count(*) from personal where id = idPer);
+							if @per = 0 
+								then select "No existe el personal" as Mensaje;
+							else 
+								insert into consultar(id_paciente, id_personal, fecha, peso, estatura, presion_arterial,
+								frecuencia_cardiaca, frecuencia_respiratoria, temperatura, diagnostico)
+								values (idPac,idPer, fecha, peso, estatura, presion_art, frec_card, frec_respi, temperatura,
+								diagnostico);
+							end if;
+						end if;
+					end if;
+				end if;
 			end if;
 		end if;
 	end if;
