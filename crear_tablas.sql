@@ -27,7 +27,8 @@ create table medicamento
     nombre varchar(50) not null,
     precio DECIMAL(7,2) not null,
     cantidad int not null,
-    gramaje varchar(50) not null
+    gramaje varchar(50) not null,
+    fecha_caducidad date not null
 )AUTO_INCREMENT=110;
 
 create table proveedor
