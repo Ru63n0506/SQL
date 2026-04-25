@@ -41,11 +41,12 @@ CREATE PROCEDURE anadir_medicamento(
     IN M_NOMBRE VARCHAR(50),
     IN M_PRECIO DECIMAL(7,2),
     IN M_CANTIDAD INT,
-    IN M_GRAMAJE VARCHAR(50)
+    IN M_GRAMAJE VARCHAR(50),
+    IN M_CADUCIDAD DATE
 )
 BEGIN
-    INSERT INTO medicamento(nombre, precio, cantidad, gramaje)
-    VALUES (M_NOMBRE, M_PRECIO, M_CANTIDAD, M_GRAMAJE);
+    INSERT INTO medicamento(nombre, precio, cantidad, gramaje, fecha_caducidad)
+    VALUES (M_NOMBRE, M_PRECIO, M_CANTIDAD, M_GRAMAJE, M_CADUCIDAD);
 END $$
 
 
