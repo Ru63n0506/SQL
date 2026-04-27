@@ -136,7 +136,7 @@ CREATE PROCEDURE surte(
     in S_PRECIO_COMPRA DECIMAL(7,2)
 )
 BEGIN
-    INSERT INTO surte(id_proveedor, id_medicamento, fecha, cantidad)
+    INSERT INTO surte(id_proveedor, id_medicamento, fecha, cantidad,precio_compra)
     VALUES (S_ID_PROVEEDOR, S_ID_MEDICAMENTO, S_FECHA, S_CANTIDAD, S_PRECIO_COMPRA);
 END $$
 
