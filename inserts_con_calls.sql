@@ -452,6 +452,7 @@ CALL surte(1009, 122, '2026-01-22', 18, 46.40);   -- 20% menos
 -- Producto 125 (Salbutamol) - Precio lista: 67.00
 CALL surte(1010, 125, '2026-01-24', 37, 53.60);   -- 20% menos
 -- Ocupaciones año 2022
+-- Ocupaciones año 2022
 CALL ocupar_cuarto(101, 151, '2022-01-10', '2022-01-15');
 CALL ocupar_cuarto(102, 152, '2022-01-12', '2022-01-18');
 CALL ocupar_cuarto(201, 153, '2022-02-01', '2022-02-05');
@@ -539,7 +540,7 @@ CALL ocupar_cuarto(104, 151, '2025-09-10', '2025-09-15');
 CALL ocupar_cuarto(203, 152, '2025-10-01', '2025-10-05');
 CALL ocupar_cuarto(302, 153, '2025-10-10', '2025-10-18');
 
--- Ocupaciones originales (año 2026) + adicionales
+-- Ocupaciones año 2026
 CALL ocupar_cuarto(101, 154, '2026-03-01', '2026-03-05');
 CALL ocupar_cuarto(202, 154, '2026-03-02', '2026-03-06');
 CALL ocupar_cuarto(303, 167, '2026-03-03', '2026-03-07');
@@ -560,33 +561,38 @@ CALL ocupar_cuarto(202, 170, '2026-03-17', '2026-03-21');
 CALL ocupar_cuarto(302, 160, '2026-03-18', '2026-03-22');
 CALL ocupar_cuarto(103, 153, '2026-03-19', '2026-03-23');
 CALL ocupar_cuarto(201, 166, '2026-03-20', '2026-03-24');
-CALL ocupar_cuarto(101, 155, '2026-04-01', '2026-04-05');
-CALL ocupar_cuarto(102, 156, '2026-04-10', '2026-04-14');
+
+CALL ocupar_cuarto(101, 165, '2026-04-01', '2026-04-05');
+CALL ocupar_cuarto(101, 156, '2026-04-06', NULL);
+
+CALL ocupar_cuarto(102, 166, '2026-04-01', '2026-04-05');
+CALL ocupar_cuarto(102, 157, '2026-04-06', NULL);
+
+CALL ocupar_cuarto(103, 167, '2026-04-01', '2026-04-06');
+CALL ocupar_cuarto(103, 158, '2026-04-07', NULL);
+
+CALL ocupar_cuarto(104, 168, '2026-04-01', '2026-04-06');
+CALL ocupar_cuarto(104, 159, '2026-04-07', NULL);
+
+CALL ocupar_cuarto(201, 169, '2026-04-01', '2026-04-05');
+CALL ocupar_cuarto(201, 160, '2026-04-06', NULL);
+
+CALL ocupar_cuarto(202, 170, '2026-04-01', '2026-04-05');
+CALL ocupar_cuarto(202, 161, '2026-04-06', NULL);
+
+CALL ocupar_cuarto(203, 151, '2026-04-01', '2026-04-05');
+CALL ocupar_cuarto(203, 162, '2026-04-06', NULL);
+
+CALL ocupar_cuarto(301, 152, '2026-04-01', '2026-04-07');
+CALL ocupar_cuarto(301, 163, '2026-04-08', NULL);
+
+CALL ocupar_cuarto(302, 153, '2026-04-01', '2026-04-06');
+CALL ocupar_cuarto(302, 164, '2026-04-07', NULL);
+
+CALL ocupar_cuarto(303, 154, '2026-04-01', '2026-04-08');
+CALL ocupar_cuarto(303, 165, '2026-04-09', NULL);
+
 CALL ocupar_cuarto(201, 157, '2026-05-01', '2026-05-05');
 CALL ocupar_cuarto(202, 158, '2026-05-10', '2026-05-14');
 CALL ocupar_cuarto(301, 159, '2026-06-01', '2026-06-07');
 CALL ocupar_cuarto(303, 160, '2026-06-10', '2026-06-16');
-
-/* Otros calls para ocupar_cuarto solo por si a caso jeje*/
-
-CALL ocupar_cuarto(101, 165, '2026-04-25', '2026-05-02');
-CALL ocupar_cuarto(102, 166, '2026-04-26', '2026-05-04');
-CALL ocupar_cuarto(103, 167, '2026-04-27', '2026-05-06');
-CALL ocupar_cuarto(104, 168, '2026-04-28', '2026-05-07');
-CALL ocupar_cuarto(201, 169, '2026-04-24', '2026-05-03');
-CALL ocupar_cuarto(202, 170, '2026-04-23', '2026-05-01');
-CALL ocupar_cuarto(203, 151, '2026-04-26', '2026-05-05');
-CALL ocupar_cuarto(301, 152, '2026-04-27', '2026-05-08');
-CALL ocupar_cuarto(302, 153, '2026-04-25', '2026-05-06');
-CALL ocupar_cuarto(303, 154, '2026-04-28', '2026-05-09');
-
-CALL ocupar_cuarto(101, 156, '2026-04-20', NULL);
-CALL ocupar_cuarto(102, 157, '2026-04-18', NULL);
-CALL ocupar_cuarto(103, 158, '2026-04-22', NULL);
-CALL ocupar_cuarto(104, 159, '2026-04-21', NULL);
-CALL ocupar_cuarto(201, 160, '2026-04-19', NULL);
-CALL ocupar_cuarto(202, 161, '2026-04-17', NULL);
-CALL ocupar_cuarto(203, 162, '2026-04-23', NULL);
-CALL ocupar_cuarto(301, 163, '2026-04-24', NULL);
-CALL ocupar_cuarto(302, 164, '2026-04-22', NULL);
-CALL ocupar_cuarto(303, 165, '2026-04-20', NULL);
