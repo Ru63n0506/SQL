@@ -136,6 +136,8 @@ group by
 having count(consultar.folio) > @n
 order by total_consultas desc;
 
+//david---------------------------------------------------
+
 /* Medicamentos con mayor volumen de prescripción por diagnóstico */
 
 set @fecha1 = '2025-01-01';

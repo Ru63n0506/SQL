@@ -404,26 +404,53 @@ CALL recetar(1182, 115, 6);
 CALL recetar(1184, 117, 4);
 CALL recetar(1185, 126, 9);
 CALL recetar(1186, 116, 8);
-CALL surte(1001, 110, '2026-01-05', 50);
-CALL surte(1001, 115, '2026-01-06', 40);
-CALL surte(1002, 110, '2026-01-08', 35);
-CALL surte(1002, 120, '2026-01-09', 30);
-CALL surte(1003, 128, '2026-01-10', 20);
-CALL surte(1003, 110, '2026-01-11', 45);
-CALL surte(1004, 129, '2026-01-12', 60);
-CALL surte(1004, 111, '2026-01-13', 55);
-CALL surte(1005, 128, '2026-01-14', 25);
-CALL surte(1005, 113, '2026-01-15', 40);
-CALL surte(1006, 114, '2026-01-16', 35);
-CALL surte(1006, 116, '2026-01-17', 30);
-CALL surte(1007, 127, '2026-01-18', 28);
-CALL surte(1007, 114, '2026-01-19', 50);
-CALL surte(1008, 117, '2026-01-20', 22);
-CALL surte(1008, 119, '2026-01-21', 33);
-CALL surte(1009, 122, '2026-01-22', 18);
-CALL surte(1011, 115, '2026-01-23', 40);
-CALL surte(1010, 125, '2026-01-24', 37);
-CALL surte(1011, 110, '2026-02-25', 26);
+-- Producto 110 (Paracetamol) - Precio lista: 35.50
+CALL surte(1001, 110, '2026-01-05', 50, 28.40);   -- 20% menos
+CALL surte(1002, 110, '2026-01-08', 35, 28.40);   -- 20% menos
+CALL surte(1003, 110, '2026-01-11', 45, 30.18);   -- 15% menos
+CALL surte(1011, 110, '2026-02-25', 26, 29.80);   -- 16% menos
+
+-- Producto 115 (Aspirina) - Precio lista: 28.00
+CALL surte(1001, 115, '2026-01-06', 40, 22.40);   -- 20% menos
+CALL surte(1011, 115, '2026-01-23', 40, 23.80);   -- 15% menos
+
+-- Producto 120 (Cetirizina) - Precio lista: 52.00
+CALL surte(1002, 120, '2026-01-09', 30, 41.60);   -- 20% menos
+
+-- Producto 128 (Losartán) - Precio lista: 72.00
+CALL surte(1003, 128, '2026-01-10', 20, 57.60);   -- 20% menos
+CALL surte(1005, 128, '2026-01-14', 25, 61.20);   -- 15% menos
+
+-- Producto 129 (Atorvastatina) - Precio lista: 110.00
+CALL surte(1004, 129, '2026-01-12', 60, 82.50);   -- 25% menos
+
+-- Producto 111 (Ibuprofeno) - Precio lista: 42.00
+CALL surte(1004, 111, '2026-01-13', 55, 35.70);   -- 15% menos
+
+-- Producto 113 (Omeprazol) - Precio lista: 60.00
+CALL surte(1005, 113, '2026-01-15', 40, 48.00);   -- 20% menos
+
+-- Producto 114 (Insulina 10ml) - Precio lista: 350.00
+CALL surte(1006, 114, '2026-01-16', 35, 262.50);  -- 25% menos
+CALL surte(1007, 114, '2026-01-19', 50, 280.00);  -- 20% menos
+
+-- Producto 116 (Metformina) - Precio lista: 48.00
+CALL surte(1006, 116, '2026-01-17', 30, 38.40);   -- 20% menos
+
+-- Producto 127 (Furosemida) - Precio lista: 38.00
+CALL surte(1007, 127, '2026-01-18', 28, 30.40);   -- 20% menos
+
+-- Producto 117 (Loratadina) - Precio lista: 52.00
+CALL surte(1008, 117, '2026-01-20', 22, 41.60);   -- 20% menos
+
+-- Producto 119 (Naproxeno 100mg) - Precio lista: 25.00
+CALL surte(1008, 119, '2026-01-21', 33, 20.00);   -- 20% menos
+
+-- Producto 122 (Insulina 20ml) - Precio lista: 58.00
+CALL surte(1009, 122, '2026-01-22', 18, 46.40);   -- 20% menos
+
+-- Producto 125 (Salbutamol) - Precio lista: 67.00
+CALL surte(1010, 125, '2026-01-24', 37, 53.60);   -- 20% menos
 -- Ocupaciones año 2022
 CALL ocupar_cuarto(101, 151, '2022-01-10', '2022-01-15');
 CALL ocupar_cuarto(102, 152, '2022-01-12', '2022-01-18');
