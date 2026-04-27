@@ -21,15 +21,16 @@ create table mobiliario
     nombre varchar(50) NOT NULL
 );
 
-create table medicamento
+CREATE TABLE medicamento
 (
-    id int primary key AUTO_INCREMENT not null,
-    nombre varchar(50) not null,
-    precio DECIMAL(7,2) not null,
-    cantidad int not null,
-    gramaje varchar(50) not null,
-    fecha_caducidad date not null
-)AUTO_INCREMENT=110;
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    precio DECIMAL(7,2) NOT NULL,
+    cantidad INT NOT NULL,
+    gramaje VARCHAR(50) NOT NULL,
+    fecha_caducidad DATE NOT NULL,
+    stock_maximo INT NOT NULL
+) AUTO_INCREMENT = 110;
 
 create table proveedor
 (
