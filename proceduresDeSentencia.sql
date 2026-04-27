@@ -529,3 +529,45 @@ group by
     personal.cargo
 
 order by consultar.fecha desc;
+
+/*	Cantidad de consultas por doctor en meses */
+use clinica;
+select 
+    concat_ws(' ', personal.nombre, personal.apellido) as Personal,
+    sum(if(month(consultar.fecha) = 1, 1, 0)) as Enero,
+    sum(if(month(consultar.fecha) = 2, 1, 0)) as Febrero,
+    sum(if(month(consultar.fecha) = 3, 1, 0)) as Marzo,
+    sum(if(month(consultar.fecha) = 4, 1, 0)) as Abril,
+    sum(if(month(consultar.fecha) = 5, 1, 0)) as Mayo,
+    sum(if(month(consultar.fecha) = 6, 1, 0)) as Junio,
+    sum(if(month(consultar.fecha) = 7, 1, 0)) as Julio,
+    sum(if(month(consultar.fecha) = 8, 1, 0)) as Agosto,
+    sum(if(month(consultar.fecha) = 9, 1, 0)) as Septiembre,
+    sum(if(month(consultar.fecha) = 10, 1, 0)) as Octubre,
+    sum(if(month(consultar.fecha) = 11, 1, 0)) as Noviembre,
+    sum(if(month(consultar.fecha) = 12, 1, 0)) as Diciembre
+from consultar
+join personal on consultar.id_personal = personal.id
+where year(consultar.fecha) = 2026
+group by personal.id, personal.nombre, personal.apellido;
+
+/*Paciente atendido por doctores en meses */
+select 
+    concat_ws(' ', paciente.nombre, paciente.apellido) as Paciente,
+    sum(if(month(consultar.fecha) = 1, 1, 0)) as Enero,
+    sum(if(month(consultar.fecha) = 2, 1, 0)) as Febrero,
+    sum(if(month(consultar.fecha) = 3, 1, 0)) as Marzo,
+    sum(if(month(consultar.fecha) = 4, 1, 0)) as Abril,
+    sum(if(month(consultar.fecha) = 5, 1, 0)) as Mayo,
+    sum(if(month(consultar.fecha) = 6, 1, 0)) as Junio,
+    sum(if(month(consultar.fecha) = 7, 1, 0)) as Julio,
+    sum(if(month(consultar.fecha) = 8, 1, 0)) as Agosto,
+    sum(if(month(consultar.fecha) = 9, 1, 0)) as Septiembre,
+    sum(if(month(consultar.fecha) = 10, 1, 0)) as Octubre,
+    sum(if(month(consultar.fecha) = 11, 1, 0)) as Noviembre,
+    sum(if(month(consultar.fecha) = 12, 1, 0)) as Diciembre,
+    count(*) as Total_Consultas
+from consultar
+join paciente on consultar.id_paciente = paciente.id
+where year(consultar.fecha) = 2026
+group by paciente.id, paciente.nombre, paciente.apellido;
